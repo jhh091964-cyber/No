@@ -1,4 +1,10 @@
-# Unreleased
+cd /workspaces/No
+git status -sb
+git branch --show-current
+git remote -vcd /workspaces/No
+git status -sb
+git branch --show-current
+git remote -v# Unreleased
 - Fixed: Redirection to `redirect_url` on page reload after authorization tokens have been captured.
 
 # 3.3.0

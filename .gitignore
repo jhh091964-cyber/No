@@ -1,0 +1,36 @@
+# macOS metadata files
+__MACOSX/
+.DS_Store
+
+# Build artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+evilginx
+evilginx2
+No
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Dependency directories
+# Note: vendor/ is included in this repository
+
+# Go workspace file
+go.work
+
+# Configuration and data directories
+.evilginx/
+crt/
+*.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

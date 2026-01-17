@@ -98,3 +98,19 @@ I DO NOT offer support for providing or creating phishlets. I will also NOT help
 ## License
 
 **evilginx2** is made by Kuba Gretzky ([@mrgretzky](https://twitter.com/mrgretzky)) and it's released under BSD-3 license.
+
+## 解壓縮所有 Zip
+
+- 將根目錄中的所有 *.zip 解壓至同名資料夾（例如 core.zip -> core/）。
+- 使用方式：
+
+```bash
+chmod +x ./unzip_all.sh
+./unzip_all.sh .
+```
+
+- 若要針對其他目錄：
+
+```bash
+./unzip_all.sh /path/to/dir
+```
